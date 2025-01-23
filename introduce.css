@@ -1,0 +1,227 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Baloo 2", serif;
+  font-family: "Jua", serif;
+  background: aliceblue;
+
+}
+
+
+/* 등장 애니메이션 keyframes 정의 */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px); /* 살짝 아래쪽에서 자연스럽게 */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%); /* 오른쪽에서 시작 */
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px); /* 아래쪽에서 시작 */
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* 프로필 섹션: 즉시 등장 시작 */
+.profileImageArea {
+  /* 기존 스타일 */
+  width: 30%;
+  height: 400px;
+  min-width: 240px;
+  max-width: 280px;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  /* 애니메이션 */
+  opacity: 0;
+  animation: fadeIn 1s forwards; /* 0초 지연, 1초 동안 진행 */
+}
+
+/* 소개 섹션: 프로필 다음에 등장하므로 약간의 지연을 줌 */
+.introduceArea {
+  opacity: 0;
+  animation: fadeIn 1s 1s forwards; /* 1초 후 시작, 1초 동안 진행 */
+}
+
+/* li 요소 순차적으로 오른쪽에서 왼쪽으로 슬라이드 */
+.introduceArea li {
+  opacity: 0; 
+  /* 먼저 안 보이게 한 뒤 */
+  animation: slideInRight 0.7s forwards; 
+  /* 공통적으로 0.7s동안 진행되지만, 각각의 딜레이를 nth-child로 지정 */
+}
+
+.introduceArea li:nth-child(1) {
+  animation-delay: 2s; /* introduceArea가 1초 후 시작 + 자기 애니메이션에 1초 걸리므로 전체 2초 이후 */
+}
+.introduceArea li:nth-child(2) {
+  animation-delay: 2.2s;
+}
+.introduceArea li:nth-child(3) {
+  animation-delay: 2.4s;
+}
+.introduceArea li:nth-child(4) {
+  animation-delay: 2.6s;
+}
+.introduceArea li:nth-child(5) {
+  animation-delay: 2.8s;
+}
+
+/* footer는 마지막에 아래에서 위로 등장 (introduceArea 1초 + li들 등장 후) */
+.scroll {
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  animation: slideUp 1s 3.6s forwards; 
+  margin-bottom: 150px;
+
+  /* 3.6s 지연 후 시작 → (introduceArea도 1초+li들이 2.8초까지) 나머지 시점 고려 */
+}
+
+/* 기존 main 스타일 */
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* 너비를 고정 혹은 최대폭만 제한 */
+  width: 80%;            /* 화면 폭의 80% 정도 */
+  max-width: 1200px;     /* 너무 넓어지지 않도록 최대폭 제한 */
+  
+  /* 중앙 정렬 (화면 가로중앙에 놓이게) */
+  margin: 40px auto;     /* 위아래 40px, 좌우 auto */
+
+  /* 배경색 & 모서리 둥근 처리 */
+  border-radius: 30px;
+
+  /* 내용이 넓어졌을 때 자동 확장되도록 */
+  padding: 40px; /* 내부 여백 */
+}
+
+/* 기존 이미지 스타일 */
+.profileImageArea > img {
+  width: 12em;
+  height: 12em;
+  border-radius: 100%;
+  box-sizing: border-box;
+  object-fit: cover;
+}
+
+.name {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+li {
+  margin-bottom: 20px;
+  list-style:none;
+}
+ul {
+  margin-left: -1em;
+}
+
+h2{
+  margin-top: 100px;
+}
+.profileIntro {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.projectcard {
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: flex-start;
+  gap: 50px
+}
+
+.projectcard > img {
+  width: 8em;
+  height: 8em;
+  object-fit:contain;
+  border: 1px solid black;
+  /* align-self: flex-start; */
+  /* justify-content: flex-start; */
+}
+
+.projectcard > div {
+  align-self: center;
+}
+
+.projectarea, .bestexperiencearea {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.bestexperiencearea > img {
+  width: 15em;
+  /* height: 13em; */
+  object-fit:contain;
+  align-self: center;
+  /* border: 1px solid black; */
+}
+.bestexperiencearea{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  /* align-items: flex-start; */
+}
+/* 숨긴 상태의 공통 스타일: opacity를 0으로, 살짝 아래로 이동 */
+.hidden {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease; 
+  /* transition 으로 자연스럽게 보이기 */
+}
+
+/* .show 클래스를 추가하면 나타나도록 */
+.hidden.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media screen and (max-width: 768px) {
+  main, .profileIntro {
+    display: flex;
+    flex-direction: column;   /* 기본 가로(row) → 세로(column)로 변경 */
+    align-items: center;      /* 중앙 정렬 */
+    margin-top: 0;
+  }
+  .profileIntro{
+    margin-bottom: 50px;
+  }
+  /* 프로필/소개 영역의 폭도 화면에 맞게 늘림 */
+  .profileImageArea,
+  .introduceArea {
+    width: 80%;   /* 혹은 100%로 해서 꽉 차게 보여줄 수도 있음 */
+    max-width: 600px;
+    margin-bottom: 20px; /* 세로 간격 */
+  }
+}
