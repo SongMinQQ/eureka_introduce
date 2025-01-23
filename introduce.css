@@ -164,7 +164,7 @@ h2{
 
 .projectcard > img {
   width: 8em;
-  height: 8em;
+  height: 7em;
   object-fit:contain;
   border: 1px solid black;
   /* align-self: flex-start; */
